@@ -1,7 +1,6 @@
 package com.regalgrid.demo.controller;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.regalgrid.demo.model.Slot;
 import com.regalgrid.demo.service.SlotService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,11 +29,12 @@ public class SlotController {
     @PostMapping("/post")
     public ResponseEntity<String> createSlot(@RequestBody Slot slot) {
         try {
+            System.out.println("SLOT : " + slot);
             String response = slotService.bookSlot(slot);
             if (response.equals("created")) {
                 return new ResponseEntity<>("slot booked", HttpStatus.OK);
             }
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,6 +49,18 @@ public class SlotController {
     @RequestParam String chargingStationId) {
         try {
             List<Slot> slots = slotService.getAllBookedSlots(date, chargingStationId);
+            return new ResponseEntity<>(slots, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getallbookedslots")
+    public ResponseEntity<List<Slot>> getAllBookedSlotsByChargingStationId(
+    @RequestParam String chargingStationId) {
+        try {
+            List<Slot> slots = slotService.getAllBookedSlotsByChargingStationId(chargingStationId);
             return new ResponseEntity<>(slots, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

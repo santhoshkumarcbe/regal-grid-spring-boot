@@ -18,5 +18,8 @@ public interface SlotRepository extends MongoRepository<Slot,String>{
 
     List<Slot> findByChargingStationIdAndStartTimeBetweenOrderByStartTimeAsc(String chargingStationId, LocalDateTime startOfDay,
             LocalDateTime endOfDay);
+
+    List<Slot> findAllByChargingStationId(String chargingStationId);
+
     
 }

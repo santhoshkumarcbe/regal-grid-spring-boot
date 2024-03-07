@@ -87,5 +87,10 @@ public class ChargingStationServiceImpl implements ChargingStationService{
 
         return stationDistances;
     }
+
+    @Override
+    public List<ChargingStation> findAllChargingStationByDealerName(String dealerName) {
+        return chargingStationRepository.findAllByDealerName(dealerName);
+    }
     
 }

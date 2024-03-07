@@ -11,7 +11,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.regalgrid.demo.model.ChargingStation;
 import com.regalgrid.demo.model.Slot;
 import com.regalgrid.demo.repository.ChargingStationRepository;
 import com.regalgrid.demo.repository.SlotRepository;
@@ -27,7 +26,7 @@ public class SlotServiceImpl implements SlotService {
 
     @Override
     public String bookSlot(Slot slot) {
-
+        
         List<Slot> availableSlots = getAllAvailableSlots(slot.getDate(), slot.getChargingStationId());
         for (Slot availableSlot : availableSlots) {
             LocalDateTime availableStartTime = availableSlot.getStartTime();
@@ -111,6 +110,11 @@ public class SlotServiceImpl implements SlotService {
         allSlots.addAll(bookedSlots);
         Collections.sort(allSlots, Comparator.comparing(Slot::getStartTime));
         return allSlots;
+    }
+
+    @Override
+    public List<Slot> getAllBookedSlotsByChargingStationId(String chargingStationId) {
+        return slotRepository.findAllByChargingStationId(chargingStationId);
     }
 
 }

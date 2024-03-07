@@ -113,13 +113,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         @Override
-        public String updatePassword(String newpassword, String userId) {
+        public String updatePassword(String newpassword, String userName) {
                 String password = passwordEncoder.encode(newpassword);
-                User user = userRepository.findById(userId).orElse(null);
+                User user = userRepository.findByUserName(userName);
+                if (user == null) {
+                        return "user name not found";
+                }
                 user.setPasswordHash(password);
                 if(userRepository.save(user) != null) {
                         return "true";
                 }
-                return "false";
+                return "unknown error";
+        }
+
+        @Override
+        public String getEmailByUserName(String username) {
+                User user = userRepository.findByUserName(username);
+                if (user == null) {
+                        return "error";
+                }
+                return user.getEmailId();
         }
 }

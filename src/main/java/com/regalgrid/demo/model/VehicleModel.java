@@ -9,12 +9,12 @@ import lombok.Data;
 @Builder
 @Data
 @Document( collection = "Vehicle")
-public class Vehicle {
+public class VehicleModel {
     @Id
     private String id;
     private String vehicleType; // two wheeler || four wheeler
     private String vehicleModel; // e.g. tata nexon, hyundai iqnix
     private String batteryCapacity;  // in kwh
-    private int chargingTime;   // estimated charging time from 0 - 100% in milliseconds
+    private int chargingTime;   // estimated charging time from 0 - 100% in seconds
     private float chargeDrainPerKm; // percentage of charge reduced during per kilometer
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserVehicle {
     @Id
     private String id;
-    private String userId;
+    private String userName;
     private String vehicleName;
     private String vehiclemodel;
     private int chargeAvailable; // current charge in vehicle

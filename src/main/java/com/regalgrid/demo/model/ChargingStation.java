@@ -22,6 +22,6 @@ public class ChargingStation {
 
     private String location;
 
-    private int costPerUnit;
+    private double costPerMinute;
     
 }

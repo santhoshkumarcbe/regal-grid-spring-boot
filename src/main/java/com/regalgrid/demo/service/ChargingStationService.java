@@ -10,5 +10,7 @@ public interface ChargingStationService {
     String createChargingStation(ChargingStation chargingStation);
 
     List<ChargingStationDistance> findAllChargingStationSortByDistance(double userLatitude, double userLongitude);
+
+    List<ChargingStation> findAllChargingStationByDealerName(String dealerName);
     
 }

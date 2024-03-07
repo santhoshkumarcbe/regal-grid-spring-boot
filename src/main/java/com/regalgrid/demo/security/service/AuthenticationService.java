@@ -14,4 +14,6 @@ public interface AuthenticationService {
 
     String updatePassword(String newpassword, String userId);
 
+    String getEmailByUserName(String username);
+
 }
