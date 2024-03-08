@@ -22,6 +22,10 @@ public class Slot {
 
     private LocalDateTime date;
 
+    private String bookedBy;
+
+    private boolean isExpired;
+
     public Slot(LocalDateTime startTime, Duration duration) {
         this.startTime = startTime;
         this.duration = duration;

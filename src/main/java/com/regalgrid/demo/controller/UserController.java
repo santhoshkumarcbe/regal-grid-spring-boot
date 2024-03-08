@@ -56,10 +56,10 @@ public class UserController {
     }
 
     @PutMapping("updatewallet/{userName}/{amount}")
-    public ResponseEntity<Integer> updateWallet(@PathVariable("userName") String userName,
-    @PathVariable("amount") int amount) {
+    public ResponseEntity<Double> updateWallet(@PathVariable("userName") String userName,
+    @PathVariable("amount") double amount) {
         try {
-            Integer response = userService.updateWallet(userName,amount);
+            double response = userService.updateWallet(userName,amount);
 
                 return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {

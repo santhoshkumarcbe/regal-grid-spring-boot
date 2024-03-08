@@ -14,7 +14,7 @@ public interface UserService {
 
     User getUser(String userName);
 
-    Integer updateWallet(String userName, int amount);
+    double updateWallet(String userName, double amount);
 
 
 

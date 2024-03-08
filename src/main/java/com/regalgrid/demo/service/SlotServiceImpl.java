@@ -117,4 +117,9 @@ public class SlotServiceImpl implements SlotService {
         return slotRepository.findAllByChargingStationId(chargingStationId);
     }
 
+    @Override
+    public List<Slot> getAllByUsername(String username) {
+        return slotRepository.findAllByBookedBy(username);
+    }
+
 }

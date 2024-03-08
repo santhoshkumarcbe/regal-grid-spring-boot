@@ -32,7 +32,7 @@ public class User implements UserDetails{
     
     private String userName;
 
-    private int wallet;
+    private double wallet;
 
     private String userRole;
 

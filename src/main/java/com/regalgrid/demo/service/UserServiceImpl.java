@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer updateWallet(String userName, int amount) {
+    public double updateWallet(String userName, double amount) {
         System.out.println("userName " + userName);
         User user = userRepository.getByUserName(userName);
         if (user==null) {
             throw new Error("user not found");
         }
-        Integer walletBalance = user.getWallet() + amount;
+        double walletBalance = user.getWallet() + amount;
         user.setWallet(walletBalance);
         user.setUserId(user.getUserId());
         userRepository.save(user);

@@ -21,5 +21,7 @@ public interface SlotRepository extends MongoRepository<Slot,String>{
 
     List<Slot> findAllByChargingStationId(String chargingStationId);
 
+    List<Slot> findAllByBookedBy(String username);
+
     
 }
