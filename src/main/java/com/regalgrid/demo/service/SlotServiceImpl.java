@@ -122,4 +122,20 @@ public class SlotServiceImpl implements SlotService {
         return slotRepository.findAllByBookedBy(username);
     }
 
+    @Override
+    public List<Slot> slotExpireByCurrentTime(LocalDateTime date) {
+        List<Slot> slots = slotRepository.findAll();
+        for(Slot slot:slots){
+            LocalDateTime startTime = slot.getStartTime();
+            LocalDateTime endTime = startTime.plus(slot.getDuration());
+
+            if (date.isAfter(endTime) || date.equals(endTime)) {
+                slot.setExpired(true);
+                slot.setId(slot.getId());
+                slotRepository.save(slot);
+            }
+        }
+        return slotRepository.findAll();
+    }
+
 }

@@ -23,5 +23,7 @@ public interface SlotRepository extends MongoRepository<Slot,String>{
 
     List<Slot> findAllByBookedBy(String username);
 
+    List<Slot> findByStartTimeBetween(LocalDateTime currentDateTime, LocalDateTime oneMinuteLater);
+
     
 }

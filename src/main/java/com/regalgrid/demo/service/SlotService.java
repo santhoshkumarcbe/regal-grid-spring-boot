@@ -18,5 +18,7 @@ public interface SlotService {
     List<Slot> getAllBookedSlotsByChargingStationId(String chargingStationId);
 
     List<Slot> getAllByUsername(String username);
+
+    List<Slot> slotExpireByCurrentTime(LocalDateTime date);
     
 }

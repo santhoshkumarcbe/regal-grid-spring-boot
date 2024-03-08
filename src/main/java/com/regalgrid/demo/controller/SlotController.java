@@ -15,6 +15,7 @@ import com.regalgrid.demo.model.Slot;
 import com.regalgrid.demo.service.SlotService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,6 +98,17 @@ public class SlotController {
     @RequestParam String chargingStationId) {
         try {
             List<Slot> slots = slotService.getAllAvailableSlotsByDate(date, chargingStationId);
+            return new ResponseEntity<>(slots, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/slotExpireByCurrentTime")
+    public ResponseEntity<List<Slot>> slotExpireByCurrentTime(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime date) {
+        try {
+            List<Slot> slots = slotService.slotExpireByCurrentTime(date);
             return new ResponseEntity<>(slots, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
