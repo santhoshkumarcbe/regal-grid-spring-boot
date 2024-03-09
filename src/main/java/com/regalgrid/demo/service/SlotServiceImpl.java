@@ -138,4 +138,26 @@ public class SlotServiceImpl implements SlotService {
         return slotRepository.findAll();
     }
 
+    @Override
+    public Slot findSlotById(String id) {
+        return slotRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Slot setSlotExpired(String slotId) {
+        Slot slot = slotRepository.findById(slotId).orElse(null);
+        if (slot == null) {
+            return slot;
+        }
+
+        if (!slot.isExpired()) {
+            slot.setExpired(true);
+            slot.setId(slot.getId());
+            slotRepository.save(slot);
+            return slot;
+        }
+        
+        return null;
+    }
+
 }

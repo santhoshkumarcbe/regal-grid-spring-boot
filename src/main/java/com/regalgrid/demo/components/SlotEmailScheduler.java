@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.regalgrid.demo.dto.Email;
 import com.regalgrid.demo.model.Slot;
+import com.regalgrid.demo.repository.ChargingStationRepository;
 import com.regalgrid.demo.repository.SlotRepository;
 import com.regalgrid.demo.security.service.AuthenticationService;
 import com.regalgrid.demo.service.EmailService;
@@ -20,6 +21,9 @@ public class SlotEmailScheduler {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired 
+    ChargingStationRepository chargingStationRepository;
 
     @Autowired
     AuthenticationService authenticationService;
@@ -33,8 +37,8 @@ public class SlotEmailScheduler {
 
         for (Slot slot : upcomingSlots) {
             String userEmail = authenticationService.getEmailByUserName(slot.getBookedBy());
-            String subject = "Charging port activation";
-            String body = "chaging port activation link demo";
+            String subject = "Charging port activation ";
+            String body = "chaging port activation, click the link to activate charging port : " + "http://localhost:4200/activate-port?id="  +slot.getId();
             Email email = Email.builder()
             .toEmail(userEmail)
             .subject(subject)
@@ -44,7 +48,5 @@ public class SlotEmailScheduler {
             System.out.println("charger activation mail send to " + userEmail);
         }
     }
-
-
     
 }

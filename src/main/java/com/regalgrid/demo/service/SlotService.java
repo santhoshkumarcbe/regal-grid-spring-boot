@@ -20,5 +20,9 @@ public interface SlotService {
     List<Slot> getAllByUsername(String username);
 
     List<Slot> slotExpireByCurrentTime(LocalDateTime date);
+
+    Slot findSlotById(String id);
+
+    Slot setSlotExpired(String slotId);
     
 }

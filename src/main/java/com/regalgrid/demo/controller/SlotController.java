@@ -55,8 +55,22 @@ public class SlotController {
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
 
+    @GetMapping("/findslotbyid/{id}")
+    public ResponseEntity<Slot> findSlotById(@PathVariable String id) {
+        try {
+            Slot slot = slotService.findSlotById(id);
+            if (slot != null) {
+                return new ResponseEntity<>(slot, HttpStatus.OK);  
+            }
+            return new ResponseEntity<>(slot, HttpStatus.BAD_REQUEST);  
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @GetMapping("/bookedslots")
     public ResponseEntity<List<Slot>> getAllBookedSlots(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime date,
     @RequestParam String chargingStationId) {
@@ -110,6 +124,21 @@ public class SlotController {
         try {
             List<Slot> slots = slotService.slotExpireByCurrentTime(date);
             return new ResponseEntity<>(slots, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/setSlotExpired/{slotId}")
+    public ResponseEntity<String> setSlotExpired(@PathVariable String slotId) {
+        try {
+            Slot slot = slotService.setSlotExpired(slotId);
+            if (slot != null) {
+                return new ResponseEntity<>("slot expired set to true", HttpStatus.OK);  
+            }
+            return new ResponseEntity<>("slot already expired or slot not found", HttpStatus.BAD_REQUEST);  
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
