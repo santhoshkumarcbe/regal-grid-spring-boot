@@ -46,7 +46,7 @@ public class ChatServiceImpl implements ChatService{
     @Override
     public List<Chat> findAllChatBySenderIdAndReceiverId(String senderId, String receiverId) {
         try {
-            return chatRepository.findAll();
+            return chatRepository.findBySenderIdAndReceiverIdOrSenderIdAndReceiverIdOrderByTimeAsc(senderId, receiverId, receiverId, senderId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -60,6 +60,11 @@ public class ChatServiceImpl implements ChatService{
             return "true";
         }
         return "chat not found";
+    }
+
+    @Override
+    public List<Chat> findAllChatByChatId(String chatId) {
+        return chatRepository.findAllByChatId(chatId);
     }
 
 }

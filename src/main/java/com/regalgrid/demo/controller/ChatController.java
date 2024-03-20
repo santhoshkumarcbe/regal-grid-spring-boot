@@ -45,8 +45,17 @@ public class ChatController {
     public ResponseEntity<List<Chat>> findAllChatBySenderIdAndReceiverId(@RequestParam String senderId,
             @RequestParam String receiverId) {
         try { 
-            System.out.println("get all chats");
             List<Chat> chats = chatService.findAllChatBySenderIdAndReceiverId(senderId, receiverId);
+            return new ResponseEntity<>(chats, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getallchatsbychatid/{chatId}")
+    public ResponseEntity<List<Chat>> findAllChatByChatId(@PathVariable String chatId) {
+        try { 
+            List<Chat> chats = chatService.findAllChatByChatId(chatId);
             return new ResponseEntity<>(chats, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,6 +76,4 @@ public class ChatController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    
 }

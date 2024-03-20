@@ -16,6 +16,10 @@ public interface UserService {
 
     double updateWallet(String userName, double amount);
 
+    User getByUsername(String username);
+
+    double getWalletBalanceByUsername(String username);
+
 
 
 

@@ -68,11 +68,35 @@ public class UserController {
         }
     }
 
+    @GetMapping("getwalletbalancebyusername/{username}")
+    public ResponseEntity<Double> getWalletBalanceByUsername(@PathVariable String username) {
+        try {
+            double balance = userService.getWalletBalanceByUsername(username);
+            return new ResponseEntity<>(balance,HttpStatus.OK);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("getall")
     public ResponseEntity<List<User>> getallUsers() {
         try {
             List<User> users = userService.getallUsers();
             return new ResponseEntity<>(users,HttpStatus.OK);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("getuserbyusername/{username}")
+    public ResponseEntity<User> getByUsername(@PathVariable String username) {
+        try {
+            User user = userService.getByUsername(username);
+            return new ResponseEntity<>(user,HttpStatus.OK);
             
         } catch (Exception e) {
             e.printStackTrace();

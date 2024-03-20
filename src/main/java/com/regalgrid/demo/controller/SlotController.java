@@ -31,12 +31,11 @@ public class SlotController {
     @PostMapping("/post")
     public ResponseEntity<String> createSlot(@RequestBody Slot slot) {
         try {
-            System.out.println("SLOT : " + slot);
             String response = slotService.bookSlot(slot);
             if (response.equals("created")) {
                 return new ResponseEntity<>("slot booked", HttpStatus.OK);
             }
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
         } catch (Exception e) {
             e.printStackTrace();

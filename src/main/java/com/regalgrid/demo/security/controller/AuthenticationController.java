@@ -35,7 +35,12 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request) {
-        return authenticationService.register(request);
+                try {
+                    return authenticationService.register(request);   
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
     }
 
     @PostMapping("/login")
@@ -80,6 +85,30 @@ public class AuthenticationController {
     public ResponseEntity<Boolean> isUsernameExist(@PathVariable String username) {
         try {
             boolean response = userRepository.existsByUserName(username);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("isEmailExist/{email}")
+    public ResponseEntity<Boolean> isEmailExist(@PathVariable String email) {
+        try {
+            boolean response = userRepository.existsByEmailId(email);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("isMobilenumberExist/{mobileNumber}")
+    public ResponseEntity<Boolean> isMobileNumberExist(@PathVariable String mobileNumber) {
+        try {
+            boolean response = userRepository.existsByMobileNumber(mobileNumber);
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e) {

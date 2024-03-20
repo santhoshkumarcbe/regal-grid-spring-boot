@@ -24,6 +24,9 @@ public class SlotServiceImpl implements SlotService {
     @Autowired 
     ChargingStationRepository chargingStationRepository;
 
+    @Autowired
+    Esp32Service esp32Service;
+
     @Override
     public String bookSlot(Slot slot) {
         
@@ -150,14 +153,21 @@ public class SlotServiceImpl implements SlotService {
             return slot;
         }
 
-        if (!slot.isExpired()) {
-            slot.setExpired(true);
-            slot.setId(slot.getId());
-            slotRepository.save(slot);
-            return slot;
+        if (slot.isExpired()) {
+            return null;
         }
         
-        return null;
+        slot.setExpired(true);
+        slot.setId(slot.getId());
+        slotRepository.save(slot);
+
+        Duration duration = slot.getDuration();
+        long milliseconds = duration.toSeconds() * 1000;
+        esp32Service.turnOnEsp32(slot.getChargingStationId(), milliseconds);
+
+        System.out.println("Relay turned on");
+
+        return slot;
     }
 
 }

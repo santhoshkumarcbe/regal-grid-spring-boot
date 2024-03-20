@@ -31,7 +31,6 @@ public class AuthoritiesController {
     @PostMapping("/post")
     public ResponseEntity<String> CreateAuthorities(@RequestBody Authorities authorities) {
         try {
-            System.out.println(authorities);
             if (authoritiesService.createAuthority(authorities)) {
                 return new ResponseEntity<String>("Authority created successfully", HttpStatus.OK);
             } else {

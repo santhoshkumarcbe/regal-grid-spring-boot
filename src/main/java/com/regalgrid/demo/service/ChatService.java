@@ -11,5 +11,7 @@ public interface ChatService {
     List<Chat> findAllChatBySenderIdAndReceiverId(String senderId, String receiverId);
 
     String deleteChatById(String chatId);
+
+    List<Chat> findAllChatByChatId(String chatId);
     
 }

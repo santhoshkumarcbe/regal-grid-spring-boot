@@ -1,5 +1,6 @@
 package com.regalgrid.demo.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,11 +65,30 @@ public class UserServiceImpl implements UserService {
         if (user==null) {
             throw new Error("user not found");
         }
+
         double walletBalance = user.getWallet() + amount;
+        walletBalance = formatToTwoDecimal(walletBalance);
         user.setWallet(walletBalance);
         user.setUserId(user.getUserId());
         userRepository.save(user);
         return walletBalance;
+    }
+
+    public static double formatToTwoDecimal(double number) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        String formattedNumber = decimalFormat.format(number);
+        return Double.parseDouble(formattedNumber);
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    @Override
+    public double getWalletBalanceByUsername(String username) {
+        User user = userRepository.findByUserName(username);
+        return user.getWallet();
     }
    
 }
