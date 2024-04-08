@@ -46,7 +46,6 @@ public class VehicleController {
             @PathVariable("userName") String userName) {
         try {
             String response = vehicleService.postUserVehicle(userVehicle, userName);
-            System.out.println("post user vehicle response : " + response);
             if (response.equals("true")) {
                 return new ResponseEntity<>("user vehicle added successfully", HttpStatus.OK);
             }

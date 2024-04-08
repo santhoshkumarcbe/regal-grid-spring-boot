@@ -38,7 +38,6 @@ public class SlotEmailScheduler {
         for (Slot slot : upcomingSlots) {
             String userEmail = authenticationService.getEmailByUserName(slot.getBookedBy());
             String subject = "Charging port activation ";
-            // String body = "chaging port activation, click the link to activate charging port : " + "http://localhost:4200/activate-port?id="  +slot.getId();
 
             String htmlBody = "<body style=\"font-family: Arial, sans-serif; color: #333; background-color: #f8f8f8; padding: 20px; border-radius: 10px;\">"
         + "<div style=\"margin-bottom: 20px;\">"

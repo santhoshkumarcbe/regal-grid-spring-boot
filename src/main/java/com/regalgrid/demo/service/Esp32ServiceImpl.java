@@ -24,13 +24,16 @@ public class Esp32ServiceImpl implements Esp32Service{
     @Override
     public boolean turnOnEsp32(String chargingStationId, long milliseconds) {
         Esp32 esp32 = esp32Repository.findByChargingStationId(chargingStationId);
+        System.out.println("esp32Service");
         if (esp32 == null) {
+            System.out.println("Charging station not found, charging station id: " +chargingStationId );
             return false;
         }
         esp32.setDuration(milliseconds);
         esp32.setOnStatus(true);
         esp32.setId(esp32.getId());
         esp32Repository.save(esp32);
+        System.out.println("esp32 relay turned ON");
         return true;
     }
 

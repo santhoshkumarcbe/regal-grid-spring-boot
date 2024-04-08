@@ -93,15 +93,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         public ResponseEntity<AuthenticationResponse> authenticate(AuthenticationRequest request) {
-                System.out.println("Authenticate service  ");
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(
                                                 request.getUserName(),
                                                 request.getPassword()));
 
-                                                System.out.println("Check");
                 User userDetails = userRepository.findByUserName(request.getUserName());
-                // User user = userRepository.getByUserName(request.getUserName());
 
                 HashMap<String, Object> extraClaims = new HashMap<>();
                 extraClaims.put("Authorities", userDetails.getAuthorities());
